@@ -55,6 +55,29 @@
       </div>
   </div>
 
+  <div fxFlex="40" *ngIf="dish">
+    <div fxFlex>
+      <form novalidate [formGroup]="addCommentForm" (ngSubmit)="addCommentFormSubmit()">
+        <md-input-container class="full-width" dividerColor="primary">
+          <input mdInput formControlName="name" placeholder="Name" type="text" required/>
+          <md-hint>
+            <span [hidden]="!formErrors.name">
+              {{formErrors.name}} 
+            </span>
+          </md-hint>
+        </md-input-container>
+        <md-input-container class="full-width" dividerColor="primary">
+          <textarea mdInput formControlName="comment" placeholder="Your Comment" rows="12" required></textarea>
+          <md-hint>
+            <span [hidden]="!formErrors.comment">
+              {{formErrors.comment}} 
+            </span>
+          </md-hint>
+        </md-input-container>
+      </form>
+    </div>
+  </div>
+
   <div [hidden]="dish">
     <md-spinner></md-spinner>
     <h4>Loading... Please wait!</h4>
