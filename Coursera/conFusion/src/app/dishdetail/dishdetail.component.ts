@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/switchMap';
 import { Dish } from '../shared/Dish';
 import { DishService } from '../services/dish.service'
-import { Comment } from '../shared/Comment'
 
 
 @Component({
@@ -68,6 +67,8 @@ export class DishdetailComponent implements OnInit {
     if (!this.addCommentForm) return;
 
     const form = this.addCommentForm;
+    form.value.date = Date().toString();
+
     for (const field in this.formErrors) {
       this.formErrors[field] = '';
       const control = form.get(field);
@@ -81,9 +82,7 @@ export class DishdetailComponent implements OnInit {
   }
 
   addCommentFormSubmit() {
-    const newComment = this.addCommentForm.value;
-    newComment.date = Date().toString();
-    console.log(newComment);
+    this.dish.comments.push(this.addCommentForm.value);
 
     this.addCommentForm.reset({
       name: '',

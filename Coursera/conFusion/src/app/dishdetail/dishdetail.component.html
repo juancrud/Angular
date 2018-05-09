@@ -58,11 +58,6 @@
         </div>
     </div>
 
-    <div [hidden]="dish">
-      <md-spinner></md-spinner>
-      <h4>Loading... Please wait!</h4>
-    </div>
-
   </div>
 
   <div class="container" 
@@ -74,7 +69,15 @@
     
     <div fxFlex="80" *ngIf="dish">
       <div fxFlex fxFlexOffset="20 px">
-        <p>{{addCommentForm.value | json}} {{addCommentForm.status | json}}</p>
+
+        <div id="preview" *ngIf="addCommentForm.valid" style="padding-bottom: 10px;">
+          <h4>Preview</h4>
+          <div>{{ addCommentForm.value.comment }}</div>
+          <div><span>{{ addCommentForm.value.rating }} stars</span></div>
+          <div><span>-- {{ addCommentForm.value.author }} {{ addCommentForm.value.date | date }}</span></div>
+          <hr>
+        </div>
+        
         <form novalidate [formGroup]="addCommentForm" (ngSubmit)="addCommentFormSubmit()">
           <md-input-container class="full-width" dividerColor="primary">
             <input mdInput formControlName="author" placeholder="Name" type="text" required/>
@@ -101,6 +104,11 @@
         </form>
       </div>
     </div>
+  </div>
+
+  <div [hidden]="dish">
+    <md-spinner></md-spinner>
+    <h4>Loading... Please wait!</h4>
   </div>
   
 </div>
