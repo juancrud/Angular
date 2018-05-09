@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/switchMap';
 import { Dish } from '../shared/Dish';
 import { DishService } from '../services/dish.service'
+import { Comment } from '../shared/Comment'
 
 
 @Component({
@@ -20,18 +21,21 @@ export class DishdetailComponent implements OnInit {
 
   addCommentForm: FormGroup;
   formErrors = {
-    'name': '',
-    'comment': '' 
+    'author': '',
+    'comment': '',
+    'rating': ''
   };
   validationMessages = {
-    'name': {
+    'author': {
       'required': 'Name is required.',
       'minlength': 'Name must be at least 2 characters long.',
       'maxlength': 'Name cannot be more than 25 characters long.'
     },
     'comment': {
       'required': 'Comment is required.',
-      'minlength': 'Comment must be at least 2 characters long.'
+      'maxlength': 'Comment cannot be more than 500 characters long.'
+    },
+    'rating': {
     }
   };
 
@@ -51,30 +55,41 @@ export class DishdetailComponent implements OnInit {
 
   createForm() {
     this.addCommentForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-      comment: ['', [Validators.required, Validators.minLength(2) ]]
+      author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+      comment: ['', [Validators.required, Validators.maxLength(500) ]],
+      rating: [5]
     });
 
     this.addCommentForm.valueChanges.subscribe(data => this.onValueChanged(data));
     this.onValueChanged(); //reset form validation messages
   }
 
-  addCommentFormSubmit() {
-    // this.feedback = this.feedbackForm.value;
-    // console.log(this.feedback);
-    // this.feedbackForm.reset({
-    //   firstname: '',
-    //   lastname: '',
-    //   telnum: '',
-    //   email: '',
-    //   agree: false,
-    //   contacttype: 'None',
-    //   message: ''
-    // });
+  onValueChanged(data?: any) {
+    if (!this.addCommentForm) return;
+
+    const form = this.addCommentForm;
+    for (const field in this.formErrors) {
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
   }
 
-  onValueChanged(data?: any) {
-    
+  addCommentFormSubmit() {
+    const newComment = this.addCommentForm.value;
+    newComment.date = Date().toString();
+    console.log(newComment);
+
+    this.addCommentForm.reset({
+      name: '',
+      comment: '',
+      rating: 5
+    });
   }
 
   setPrevNext(dishId: number) {
