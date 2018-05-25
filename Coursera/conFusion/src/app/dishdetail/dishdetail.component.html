@@ -106,9 +106,14 @@
     </div>
   </div>
 
-  <div [hidden]="dish">
+  <div [hidden]="dish || errorMessage">
     <md-spinner></md-spinner>
     <h4>Loading... Please wait!</h4>
+  </div>
+
+  <div *ngIf="errorMessage">
+    <h2>Error</h2>
+    <h4>{{errorMessage}}</h4>
   </div>
   
 </div>

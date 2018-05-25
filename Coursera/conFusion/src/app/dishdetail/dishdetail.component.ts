@@ -17,6 +17,7 @@ export class DishdetailComponent implements OnInit {
   dishIds: number[];
   prev: number;
   next: number;
+  errorMessage: string;
 
   addCommentForm: FormGroup;
   formErrors = {
@@ -55,7 +56,7 @@ export class DishdetailComponent implements OnInit {
     // "+" converts the string into number
     this.route.params
       .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
+      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }, errMsg => this.errorMessage = <any>errMsg);
   }
 
   createForm() {
