@@ -81,6 +81,24 @@
           "comment": "It's your birthday, we're gonna party!",
           "author": "25 Cent",
           "date": "2011-12-02T17:57:28.556094Z"
+        },
+        {
+          "author": "Juan",
+          "comment": "good",
+          "rating": 4,
+          "date": "Mon May 28 2018 10:45:08 GMT-0600 (Central America Standard Time)"
+        },
+        {
+          "author": "Juan",
+          "comment": "good",
+          "rating": 4,
+          "date": "Mon May 28 2018 10:45:08 GMT-0600 (Central America Standard Time)"
+        },
+        {
+          "author": "New comment",
+          "comment": "very good",
+          "rating": 3,
+          "date": "Mon May 28 2018 10:47:25 GMT-0600 (Central America Standard Time)"
         }
       ]
     },
