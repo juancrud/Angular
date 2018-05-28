@@ -14,6 +14,7 @@ import { DishService } from '../services/dish.service'
 })
 export class DishdetailComponent implements OnInit {
   dish: Dish;
+  dishcopy = null;
   dishIds: number[];
   prev: number;
   next: number;
@@ -56,7 +57,11 @@ export class DishdetailComponent implements OnInit {
     // "+" converts the string into number
     this.route.params
       .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }, errMsg => this.errorMessage = <any>errMsg);
+      .subscribe(dish => { 
+        this.dish = dish; 
+        this.dishcopy = dish; 
+        this.setPrevNext(dish.id); 
+      }, errMsg => this.errorMessage = <any>errMsg);
   }
 
   createForm() {
@@ -89,7 +94,8 @@ export class DishdetailComponent implements OnInit {
   }
 
   addCommentFormSubmit() {
-    this.dish.comments.push(this.addCommentForm.value);
+    this.dishcopy.comments.push(this.addCommentForm.value);
+    this.dishcopy.save().subscribe(dish => this.dish = dish);
 
     this.addCommentForm.reset({
       name: '',
