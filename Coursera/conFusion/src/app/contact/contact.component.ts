@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut, expand } from '../animations/app.animation';
 import { FeedbackService } from '../services/feedback.service'
 
 @Component({
@@ -9,7 +9,8 @@ import { FeedbackService } from '../services/feedback.service'
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   animations: [
-    flyInOut()
+    flyInOut(),
+    expand()
   ],
   host: {
     '[@flyInOut]': 'true',

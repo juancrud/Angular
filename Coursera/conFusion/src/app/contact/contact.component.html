@@ -38,7 +38,7 @@
 
   <div fxFlex fxFlexOffset="20 px" class="form-size">
     <h3>Send us your Feedback</h3>
-    <div *ngIf="feedback">
+    <div *ngIf="feedback" [@expand]>
       <h3>Your Submission</h3>
       <p>
         First Name: {{feedback.firstname}} <br />
@@ -51,13 +51,13 @@
       </p>
     </div>
 
-    <div *ngIf="submitting">
+    <div *ngIf="submitting" [@expand]>
       <h3>Submitting Form</h3>
       <md-spinner></md-spinner>
       <h4>Loading... Please wait!</h4>
     </div>
 
-    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="!submitting && !feedback">
+    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="!submitting && !feedback" [@expand]>
       <p>
         <md-input-container class="half-width" dividerColor="{{formErrors.firstname ? 'warn' : 'primary'}}">
           <input mdInput formControlName="firstname" placeholder="First Name" type="text" required/>
