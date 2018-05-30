@@ -19,6 +19,7 @@ import { FeedbackService } from '../services/feedback.service'
 export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
+  submitting: boolean = false;
   contactType = ContactType;
   formErrors = {
     'firstname': '',
@@ -87,8 +88,15 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
-    this.feedback = this.feedbackForm.value;
-    this.feedbackService.submitFeedback(this.feedback).subscribe(feedback => console.log('Feedback return: ', feedback));
+    const myFeedback = this.feedbackForm.value;
+    this.submitting = true;
+    this.feedbackService.submitFeedback(myFeedback)
+      .subscribe(feedback => {
+        this.submitting = false;
+        this.feedback = feedback;
+        
+        setTimeout(() => this.feedback = null,  5000);
+      });
 
     this.feedbackForm.reset({
       firstname: '',
